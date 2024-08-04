@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="index.css">
+
+  <title>PortKub</title>
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="navbar-container">
+      <a href="#" class="navbar-logo">PortKub</a>
+      <div class="navbar-container-item">
+        <ul class="navbar-menu">
+          <li class="navbar-item"><a href="#" class="navbar-link">Trade</a></li>
+          <li class="navbar-item"><a href="#" class="navbar-link">Portfolio</a></li>
+          <li class="navbar-item"><a href="#" class="navbar-link">Backtesting</a></li>
+          <li class="navbar-item"><a href="#" class="navbar-link">About</a></li>
+        </ul>
+        <div class="profile-dropdown">
+          <img src=".\profile-picture.png" alt="Profile" class="profile-icon">
+          <ul class="dropdown-menu">
+            <li class="dropdown-item"><a href="#" class="dropdown-link">Login</a></li>
+            <li class="dropdown-item"><a href="#" class="dropdown-link">SignUp</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="asset_name">Binance BTCUSDT Chart (AssetBox)</h2>
+    <div class="row">
+      <div class="chart" id="tvchart"></div>
+      <div class="list">ListBox
+        <div class="detail">DetailBox</div>
+      </div>
+    </div>
+    <div class="footer">FooterBox</div>
+</body>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+<script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
+<script type="text/javascript" src="index.js"></script>
+
+</html>

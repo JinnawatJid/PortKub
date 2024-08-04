@@ -1,0 +1,135 @@
+:root {
+  font-family: -apple-system, BlinkMacSystemFont, "Trebuchet MS", Roboto, Ubuntu,
+    sans-serif;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  /* Add a background color to match the chart */
+  background-color: lightcyan;
+}
+
+.navbar {
+  background-color: #333;
+  height: 5vh;
+  padding: 1rem;
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1rem;
+}
+
+.navbar-container-item{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+}
+
+.navbar-logo {
+  font-weight: 600;
+  font-size: 32px;
+  background: var(
+    --18-promo-gradient-02,
+    linear-gradient(90deg, #00bce5 0%, #2962ff 100%)
+  );
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.navbar-menu {
+  list-style: none;
+  display: flex;
+  position: relative; /* Needed for dropdown positioning */
+}
+
+.navbar-item {
+  margin-left: 1.5rem;
+}
+
+.navbar-link {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1rem;
+}
+
+.navbar-link:hover {
+  color: #ddd;
+}
+
+.profile-dropdown {
+  position: relative;
+}
+
+.profile-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 100%;
+  background-color: #444;
+  list-style: none;
+  padding: 0.5rem 0;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.dropdown-item {
+  padding: 0.5rem 1rem;
+}
+
+.dropdown-link {
+  color: #fff;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-link:hover {
+  background-color: #555;
+}
+
+/* Show dropdown on profile-icon click */
+.profile-dropdown.active .dropdown-menu {
+  display: block;
+}
+
+.asset_name {
+  background-color: lightblue;
+  text-align: center;
+  height: 5vh;
+  line-height: 5vh;
+}
+
+.row {
+  display: flex;
+}
+
+.column {
+  flex: 80%;
+}
+
+.list {
+  background-color: gray;
+  width: 100%;
+  height: auto;
+  display: grid;
+}
+
+.detail {
+  background-color: beige;
+}
+
+.footer {
+  background-color: lightcyan;
+  text-align: center;
+}

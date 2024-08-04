@@ -81,3 +81,19 @@ socket.on('KLINE',(pl)=>{
   //log(pl);
   candleSeries.update(pl);
 });
+
+document.addEventListener("DOMContentLoaded", function() {
+  const profileDropdown = document.querySelector(".profile-dropdown");
+  const profileIcon = profileDropdown.querySelector(".profile-icon");
+
+  profileIcon.addEventListener("click", function() {
+      profileDropdown.classList.toggle("active");
+  });
+
+  // Close dropdown if clicked outside
+  document.addEventListener("click", function(event) {
+      if (!profileDropdown.contains(event.target)) {
+          profileDropdown.classList.remove("active");
+      }
+  });
+});
