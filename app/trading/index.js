@@ -3,7 +3,7 @@
 //Step 2: Create the chart with defined properties and bind it to the DOM element.
 //Step 3: Add the CandleStick Series.
 //Step 4: Set the data and render.
-//Step5 : Plug the socket to the chart
+//Step 5: Plug the socket to the chart
 
 
 //Code
