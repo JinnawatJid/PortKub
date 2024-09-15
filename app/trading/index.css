@@ -139,12 +139,14 @@ body {
   flex-direction: column;
   width: auto;
   margin: auto;
+  background-color: #040a19;
+  color: white;
 }
 
 .list button {
-  background-color: transparent; /* Blue background */
+  background-color: #0c1d4c;
+  color: white;
   padding: 10px;
-  margin: 5px 0;
   border: none;
   font-size: 16px;
   cursor: pointer;
@@ -152,10 +154,10 @@ body {
 }
 
 .list button:hover {
-  background-color: #4682b4; /* Darker blue on hover */ 
+  background-color: #153180;
 }
 
 .list button:active {
-  background-color: #4169e1; /* Darkest blue on click */
+  background-color: #1d45b3; /* Darkest blue on click */
   transform: scale(0.98); /* Slightly shrink on click */
 }
