@@ -61,34 +61,42 @@ function updateChart(token) {
 // Initialize chart with default token
 updateChart("BTCUSDT&interval=1m&limit=1000");
 
+// Select the asset_name element
+const assetNameElement = document.querySelector('.asset_name');
+
 // Event listener for buttons
 document.getElementById("btcButton").addEventListener("click", () => {
     updateChart("BTCUSDT&interval=1m&limit=1000");
     const symbol = "BTCUSDT";
+    assetNameElement.textContent = 'Binance BTCUSDT Chart (Bitcoin)';
     socket.emit("CHANGE_SYMBOL", symbol);
 });
 
 document.getElementById("ethButton").addEventListener("click", () => {
     updateChart("ETHUSDT&interval=1m&limit=1000");
     const symbol = "ETHUSDT";
+    assetNameElement.textContent = 'Binance ETHUSDT Chart (Ethereum)';
     socket.emit("CHANGE_SYMBOL", symbol);
 });
 
 document.getElementById("usdtButton").addEventListener("click", () => {
   updateChart("USDTDAI&interval=1m&limit=1000");
   const symbol = "USDTDAI";
+  assetNameElement.textContent = 'Binance USDTDAI Chart (Tether)';
   socket.emit("CHANGE_SYMBOL", symbol);
 });
 
 document.getElementById("bnbButton").addEventListener("click", () => {
   updateChart("BNBUSDT&interval=1m&limit=1000");
   const symbol = "BNBUSDT";
+  assetNameElement.textContent = 'Binance BNBUSDT Chart (BNB)';
   socket.emit("CHANGE_SYMBOL", symbol);
 });
 
 document.getElementById("solButton").addEventListener("click", () => {
   updateChart("SOLUSDT&interval=1m&limit=1000");
   const symbol = "SOLUSDT";
+  assetNameElement.textContent = 'Binance SOLUSDT Chart (Solana)';
   socket.emit("CHANGE_SYMBOL", symbol);
 });
 
