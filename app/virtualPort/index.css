@@ -1,0 +1,240 @@
+:root {
+  font-family: -apple-system, BlinkMacSystemFont, "Trebuchet MS", Roboto, Ubuntu,
+    sans-serif;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  /* Add a background color to match the chart */
+  background-color: #081433;
+}
+
+.navbar {
+  background-color: #040a19;
+  height: 5vh;
+  padding: 1rem;
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1rem;
+}
+
+.navbar-container-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+}
+
+.navbar-logo {
+  font-weight: 600;
+  font-size: 32px;
+  background: var(
+    --18-promo-gradient-02,
+    linear-gradient(90deg, #00bce5 0%, #2962ff 100%)
+  );
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.navbar-menu {
+  list-style: none;
+  display: flex;
+  position: relative; /* Needed for dropdown positioning */
+}
+
+.navbar-item {
+  margin-left: 1.5rem;
+}
+
+.navbar-link {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1rem;
+}
+
+.navbar-link:hover {
+  color: #ddd;
+}
+
+.profile-dropdown {
+  position: relative;
+}
+
+.profile-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 100%;
+  background-color: #444;
+  list-style: none;
+  padding: 0.5rem 0;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.dropdown-item {
+  padding: 0.5rem 1rem;
+}
+
+.dropdown-link {
+  color: #fff;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-link:hover {
+  background-color: #555;
+}
+
+/* Show dropdown on profile-icon click */
+.profile-dropdown.active .dropdown-menu {
+  display: block;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+  flex-direction: column;
+  gap: 50px;
+  align-content: center;
+  flex-wrap: wrap;
+}
+
+.currentAssetValueContainer {
+  background-color: #040a19;
+  width: 80vw;
+  height: 200px;
+  color: white;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.column1 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  justify-content: center;
+  align-content: center;
+  border-right: 2px solid #081433;
+}
+
+.assetValueImage {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-wrap: wrap;
+}
+
+.assetValueImage img {
+  display: flex;
+  width: 84px;
+  height: 84px;
+}
+
+.column2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  justify-content: center;
+  align-content: center;
+  border-right: 2px solid #081433;
+}
+
+.column3 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  justify-content: center;
+  align-content: center;
+}
+
+.investmentValueContainer {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+
+.profitLossContainer {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+
+.portfolioContainer {
+  background-color: #040a19;
+  width: 80vw;
+  height: 400px;
+  color: white;
+  display: grid;
+  gap: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.assetsLabel {
+  display: flex;
+  justify-content: space-evenly;
+  align-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  background-color: #0c1d4c;
+  border-radius: 10px 10px 0 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.assetsDetail {
+  display: flex;
+  justify-content: flex-start;
+  align-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.assetsDetail img {
+  display: flex;
+  width: 14px;
+  justify-content: center;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.assetIcon {
+  display: flex;
+  justify-content: space-evenly;
+  align-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* Initial style for the delete icon */
+.img.delete-icon {
+  width: 20px; /* Set initial size */
+  height: 20px; /* Set initial size */
+  transition: transform 0.3s, opacity 0.3s, filter 0.3s; /* Smooth transition for effects */
+  cursor: pointer; /* Show pointer cursor on hover */
+}
+
+/* Hover effect for the delete icon */
+img.delete-icon:hover {
+  transform: scale(1.2); /* Scale the icon up to 120% */
+  filter: brightness(0.8); /* Darken the icon slightly */
+  opacity: 0.8; /* Lower the opacity */
+}

@@ -1,11 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
     <title>Portfolio</title>
 </head>
+
 <body>
-    
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="#" class="navbar-logo">PortKub</a>
+            <div class="navbar-container-item">
+                <ul class="navbar-menu">
+                    <li class="navbar-item"><a href="../trading/index.html" class="navbar-link">Trade</a></li>
+                    <li class="navbar-item"><a href=../virtualPort/index.html class="navbar-link">Portfolio</a></li>
+                    <li class="navbar-item"><a href="#" class="navbar-link">Backtesting</a></li>
+                    <li class="navbar-item"><a href="#" class="navbar-link">About</a></li>
+                </ul>
+                <div class="profile-dropdown">
+                    <img src="../../media/icon/profile-picture.png" alt="Profile" class="profile-icon">
+                    <ul class="dropdown-menu">
+                        <li class="dropdown-item"><a href="#" class="dropdown-link">Login</a></li>
+                        <li class="dropdown-item"><a href="#" class="dropdown-link">SignUp</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+
+        <div class="currentAssetValueContainer">
+            <div class="column1">
+                <div class="assetValueImage"><img src="../../media/icon/AssetValue.png" alt="AssetValue"></div>
+                <div>
+                    <h3>Current Asset Value</h3>
+                    <h2 id="currentPrice">78,000 USD</h2>
+                </div>
+            </div>
+            <div class="column2">
+                <div class="investmentValueContainer">
+                    <h4>Investment Value</h4>
+                    <h4>Profit / Loss</h4>
+                </div>
+                <div class="profitLossContainer">
+                    <h4>78,000 USD</h4>
+                    <h4>0 USD</h4>
+                </div>
+            </div>
+            <div class="column3">
+                <div class="investmentValueContainer">
+                    <h4>Profit / Loss from Sale</h4>
+                    <h4>Total Profit / Loss</h4>
+                </div>
+                <div class="profitLossContainer">
+                    <h4>0 USD</h4>
+                    <h4>0 USD</h4>
+                </div>
+            </div>
+        </div>
+
+        <div class="portfolioContainer">
+
+            <div class="assetsLabel">
+                <h5>Asset Name</h5>
+                <h5>Quantity</h5>
+                <h5>Average Cost Price (USD)</h5>
+                <h5>Current Price (USD)</h5>
+                <h5>Cost Value (USD)</h5>
+                <h5>Current Value (USD)</h5>
+                <h5>Profit / Loss (USD)</h5>
+                <h5>Profit / Loss (%)</h5>
+            </div>
+
+            <div class="assetsDetail">
+                <div class="assetIcon" style="margin-left: 20px;">
+                    <img class="asset_image" src="../../media/icon/bitcoin.png" alt="bitcoin logo" style="width: 30px; height: 30px;">
+                    <h5>Bitcoin</h5>
+                </div>
+                <h5 style="margin-left: 70px;">10</h5>
+                <h5 style="margin-left: 120px;">78,000</h5>
+                <h5 style="margin-left: 140px;">78,000</h5>
+                <h5 style="margin-left: 110px;">78,000</h5>
+                <h5 style="margin-left: 100px;">78,000</h5>
+                <h5 style="margin-left: 140px;">0</h5>
+                <h5 style="margin-left: 150px;">0</h5>
+                <img src="../../media/icon/Cross.png" class="delete-icon" alt="" style="margin-left: 50px;">
+            </div>
+
+        </div>
+
+    </div>
+
+    </div>
+
+
 </body>
+<script type="text/javascript" src="index.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </html>
