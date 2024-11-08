@@ -19,6 +19,7 @@ const chartProperties = {
 
 const domElement = document.getElementById("tvchart");
 const chart = LightweightCharts.createChart(domElement, chartProperties);
+let currentPrice;
 
 // Setting the border color for the vertical and horizontal axis
 chart.priceScale().applyOptions({ borderColor: "#71649C" });
@@ -62,41 +63,70 @@ function updateChart(token) {
 updateChart("BTCUSDT&interval=1m&limit=1000");
 
 // Select the asset_name element
-const assetNameElement = document.querySelector('.asset_name');
+const assetNameElement = document.querySelector(".asset_name");
+const assetImageElement = document.querySelector(".asset_image");
 
 // Event listener for buttons
 document.getElementById("btcButton").addEventListener("click", () => {
-    updateChart("BTCUSDT&interval=1m&limit=1000");
-    const symbol = "BTCUSDT";
-    assetNameElement.textContent = 'Binance BTCUSDT Chart (Bitcoin)';
-    socket.emit("CHANGE_SYMBOL", symbol);
+  updateChart("BTCUSDT&interval=1m&limit=1000");
+  const symbol = "BTCUSDT";
+  assetNameElement.textContent = "Binance BTCUSDT Chart (Bitcoin)";
+  assetImageElement.src = "../../media/icon/bitcoin.png";
+  assetImageElement.alt = "bitcoin logo";
+  socket.emit("CHANGE_SYMBOL", symbol);
 });
 
 document.getElementById("ethButton").addEventListener("click", () => {
-    updateChart("ETHUSDT&interval=1m&limit=1000");
-    const symbol = "ETHUSDT";
-    assetNameElement.textContent = 'Binance ETHUSDT Chart (Ethereum)';
-    socket.emit("CHANGE_SYMBOL", symbol);
+  updateChart("ETHUSDT&interval=1m&limit=1000");
+  const symbol = "ETHUSDT";
+  assetNameElement.textContent = "Binance ETHUSDT Chart (Ethereum)";
+  assetImageElement.src = "../../media/icon/ethereum.png";
+  assetImageElement.alt = "ethereum logo";
+  socket.emit("CHANGE_SYMBOL", symbol);
 });
 
 document.getElementById("usdtButton").addEventListener("click", () => {
   updateChart("USDTDAI&interval=1m&limit=1000");
   const symbol = "USDTDAI";
-  assetNameElement.textContent = 'Binance USDTDAI Chart (Tether)';
+  assetNameElement.textContent = "Binance USDTDAI Chart (Tether)";
+  assetImageElement.src = "../../media/icon/tether.png";
+  assetImageElement.alt = "tether logo";
   socket.emit("CHANGE_SYMBOL", symbol);
 });
 
 document.getElementById("bnbButton").addEventListener("click", () => {
   updateChart("BNBUSDT&interval=1m&limit=1000");
   const symbol = "BNBUSDT";
-  assetNameElement.textContent = 'Binance BNBUSDT Chart (BNB)';
+  assetNameElement.textContent = "Binance BNBUSDT Chart (Binance)";
+  assetImageElement.src = "../../media/icon/bnb.png";
+  assetImageElement.alt = "bnb logo";
   socket.emit("CHANGE_SYMBOL", symbol);
 });
 
 document.getElementById("solButton").addEventListener("click", () => {
   updateChart("SOLUSDT&interval=1m&limit=1000");
   const symbol = "SOLUSDT";
-  assetNameElement.textContent = 'Binance SOLUSDT Chart (Solana)';
+  assetNameElement.textContent = "Binance SOLUSDT Chart (Solana)";
+  assetImageElement.src = "../../media/icon/solana.png";
+  assetImageElement.alt = "solana logo";
+  socket.emit("CHANGE_SYMBOL", symbol);
+});
+
+document.getElementById("xrpButton").addEventListener("click", () => {
+  updateChart("XRPUSDT&interval=1m&limit=1000");
+  const symbol = "XRPUSDT";
+  assetNameElement.textContent = "Binance XRPUSDT Chart (XRP)";
+  assetImageElement.src = "../../media/icon/xrp.png";
+  assetImageElement.alt = "xrp logo";
+  socket.emit("CHANGE_SYMBOL", symbol);
+});
+
+document.getElementById("dogeButton").addEventListener("click", () => {
+  updateChart("DOGEUSDT&interval=1m&limit=1000");
+  const symbol = "DOGEUSDT";
+  assetNameElement.textContent = "Binance DOGEUSDT Chart (DOGE)";
+  assetImageElement.src = "../../media/icon/doge.png";
+  assetImageElement.alt = "doge logo";
   socket.emit("CHANGE_SYMBOL", symbol);
 });
 
@@ -109,23 +139,66 @@ window.addEventListener("resize", () => {
 const socket = io.connect("http://127.0.0.1:4000/");
 
 socket.on("KLINE", (pl) => {
-  // Ensure the 'pl' data format is correct for `candleSeries.update`
+  // Update the chart with the new data
   candleSeries.update(pl);
+
+  currentPrice = pl.close;
+  document.getElementById("currentPrice").innerText = `Current Price: ${currentPrice}`;
 });
 
-// Profile dropdown logic
-document.addEventListener("DOMContentLoaded", function () {
-  const profileDropdown = document.querySelector(".profile-dropdown");
-  const profileIcon = profileDropdown.querySelector(".profile-icon");
+document.getElementById("buyButton").addEventListener("click", () => {
+  const assetName = "Binance BTCUSDT Chart (Bitcoin)";  // Example asset name. Adjust as needed.
+  currentPrice; // Example price. Adjust as needed.
 
-  profileIcon.addEventListener("click", function () {
-    profileDropdown.classList.toggle("active");
-  });
+  Swal.fire({
+    title: 'Buy Asset',
+    html: `
+      <div style="text-align: left;">
+        <p><strong>Asset Name:</strong> ${assetName}</p>
+        <p><strong>Current Price:</strong> ${currentPrice}</p>
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" placeholder="Enter quantity" class="swal2-input">
+      </div>
+    `,
+    showCancelButton: true,
+    confirmButtonText: 'Confirm',
+    cancelButtonText: 'Cancel',
+    confirmButtonColor: '#17A37A',
+    cancelButtonColor: '#AE1F0E',
 
-  // Close dropdown if clicked outside
-  document.addEventListener("click", function (event) {
-    if (!profileDropdown.contains(event.target)) {
-      profileDropdown.classList.remove("active");
+    preConfirm: () => {
+      const quantity = document.getElementById('quantity').value;
+      if (!quantity) {
+        Swal.showValidationMessage('Please enter a quantity');
+      }
+      return { assetName, currentPrice, quantity };
+    }
+  }).then((result) => {
+    if (result.isConfirmed) {
+      const { assetName, currentPrice, quantity } = result.value;
+
+      // Step 3: Send data to the server using AJAX
+      fetch('http://localhost:3000/api/buyAsset', {  // Replace '/api/buyAsset' with your actual endpoint
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ assetName, price: currentPrice, quantity }),
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          Swal.fire('Success!', 'Asset purchase has been recorded.', 'success');
+        } else {
+          Swal.fire('Error!', 'There was a problem with the purchase.', 'error');
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        Swal.fire('Error!', 'Unable to reach the server.', 'error');
+      });
     }
   });
 });
+
+
