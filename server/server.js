@@ -8,8 +8,14 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json()); // Parse JSON request bodies
 
-// Serve static files from the 'app/trading' directory
-app.use(express.static(path.join(__dirname, "..", "app", "trading")));
+// Serve static files from the 'trading' directory
+app.use("/trading", express.static(path.join(__dirname, "..", "app", "trading")));
+
+// Serve static files from the 'virtualPort' directory
+app.use("/virtualPort", express.static(path.join(__dirname, "..", "app", "virtualPort")));
+
+// Serve static files from the 'media' directory
+app.use("/media", express.static(path.join(__dirname, "..", "media")));
 
 // Redirect root URL to index.html
 app.get("/", (req, res) => {
