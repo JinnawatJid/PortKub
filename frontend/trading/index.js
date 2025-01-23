@@ -30,10 +30,16 @@ const candleSeries = chart.addCandlestickSeries();
 // Function to fetch and update chart data
 function updateChart(token) {
   const baseURL =
-    "http://127.0.0.1:9665/fetchAPI?endpoint=https://api.binance.com/api/v3/klines?symbol=";
+    "https://101d-2001-44c8-6110-4dac-1c67-4c4-7350-8bbf.ngrok-free.app/fetchAPI?endpoint=https://api.binance.com/api/v3/klines?symbol="; //:9665
   const fetchURL = `${baseURL}${token}`;
 
-  fetch(fetchURL)
+  fetch(fetchURL, {
+    method: "GET",
+    headers: {
+      "ngrok-skip-browser-warning": "true", // Skip ngrok's browser warning
+      "User-Agent": "Mozilla/5.0 (compatible; MyCustomAgent/1.0)", // Custom User-Agent
+    },
+  })
     .then((res) => {
       if (!res.ok) {
         throw new Error("Network response was not ok");
@@ -136,22 +142,35 @@ window.addEventListener("resize", () => {
 });
 
 // Dynamic Chart
-const socket = io.connect("http://127.0.0.1:4000/");
+const socket = io.connect("https://d93d-2001-44c8-6110-4dac-1c67-4c4-7350-8bbf.ngrok-free.app/", { //:4000
+  withCredentials: true, // Make sure to allow credentials
+  transports: ["websocket"], // Specify WebSocket transport
+  transportOptions: {
+    websocket: {
+      headers: {
+        "ngrok-skip-browser-warning": "true", // Skip ngrok's browser warning
+        "User-Agent": "Mozilla/5.0 (compatible; MyCustomAgent/1.0)", // Custom User-Agent
+      },
+    },
+  },
+});
 
 socket.on("KLINE", (pl) => {
   // Update the chart with the new data
   candleSeries.update(pl);
 
   currentPrice = pl.close;
-  document.getElementById("currentPrice").innerText = `Current Price: ${currentPrice}`;
+  document.getElementById(
+    "currentPrice"
+  ).innerText = `Current Price: ${currentPrice}`;
 });
 
 document.getElementById("buyButton").addEventListener("click", () => {
-  const assetName = "Binance BTCUSDT Chart (Bitcoin)";  // Example asset name. Adjust as needed.
+  const assetName = "Binance BTCUSDT Chart (Bitcoin)"; // Example asset name. Adjust as needed.
   currentPrice; // Example price. Adjust as needed.
 
   Swal.fire({
-    title: 'Buy Asset',
+    title: "Buy Asset",
     html: `
       <div style="text-align: left;">
         <p><strong>Asset Name:</strong> ${assetName}</p>
@@ -161,44 +180,51 @@ document.getElementById("buyButton").addEventListener("click", () => {
       </div>
     `,
     showCancelButton: true,
-    confirmButtonText: 'Confirm',
-    cancelButtonText: 'Cancel',
-    confirmButtonColor: '#17A37A',
-    cancelButtonColor: '#AE1F0E',
+    confirmButtonText: "Confirm",
+    cancelButtonText: "Cancel",
+    confirmButtonColor: "#17A37A",
+    cancelButtonColor: "#AE1F0E",
 
     preConfirm: () => {
-      const quantity = document.getElementById('quantity').value;
+      const quantity = document.getElementById("quantity").value;
       if (!quantity) {
-        Swal.showValidationMessage('Please enter a quantity');
+        Swal.showValidationMessage("Please enter a quantity");
       }
       return { assetName, currentPrice, quantity };
-    }
+    },
   }).then((result) => {
     if (result.isConfirmed) {
       const { assetName, currentPrice, quantity } = result.value;
 
       // Step 3: Send data to the server using AJAX
-      fetch('http://localhost:3000/api/buyAsset', {  // Replace '/api/buyAsset' with your actual endpoint
-        method: 'POST',
+      fetch("http://localhost:3000/api/buyAsset", {
+        // Replace '/api/buyAsset' with your actual endpoint
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ assetName, price: currentPrice, quantity }),
       })
-      .then(response => response.json())
-      .then(data => {
-        if (data.success) {
-          Swal.fire('Success!', 'Asset purchase has been recorded.', 'success');
-        } else {
-          Swal.fire('Error!', 'There was a problem with the purchase.', 'error');
-        }
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        Swal.fire('Error!', 'Unable to reach the server.', 'error');
-      });
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.success) {
+            Swal.fire(
+              "Success!",
+              "Asset purchase has been recorded.",
+              "success"
+            );
+          } else {
+            Swal.fire(
+              "Error!",
+              "There was a problem with the purchase.",
+              "error"
+            );
+          }
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+          Swal.fire("Error!", "Unable to reach the server.", "error");
+        });
     }
   });
 });
-
-

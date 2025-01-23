@@ -9,17 +9,23 @@ app.use(cors());
 app.use(bodyParser.json()); // Parse JSON request bodies
 
 // Serve static files from the 'trading' directory
-app.use("/trading", express.static(path.join(__dirname, "..", "app", "trading")));
+app.use(
+  "/trading",
+  express.static(path.join(__dirname, "../..", "frontend", "trading"))
+);
 
 // Serve static files from the 'virtualPort' directory
-app.use("/virtualPort", express.static(path.join(__dirname, "..", "app", "virtualPort")));
+app.use(
+  "/virtualPort",
+  express.static(path.join(__dirname, "../..", "frontend", "virtualPort"))
+);
 
 // Serve static files from the 'media' directory
-app.use("/media", express.static(path.join(__dirname, "..", "media")));
+app.use("/media", express.static(path.join(__dirname, "../..", "media")));
 
-// Redirect root URL to index.html
+// Redirect root URL to the trading app's index.html
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "..", "app", "trading", "index.html"));
+  res.sendFile(path.join(__dirname, "../..", "frontend", "trading", "index.html"));
 });
 
 // Endpoint to handle asset purchase
@@ -70,7 +76,7 @@ app.listen(port, () => {
 });
 
 // Automatically run the REST API Proxy (restproxy.js)
-require("../RESTGETAPIProxy/restproxy");
+require(path.join(__dirname, "..", "RESTGETAPIProxy", "restproxy"));
 
 // Automatically run the Kline WebSocket data server (kline.js)
-require("../WSGETKlineData/kline");
+require(path.join(__dirname, "..", "WSGETKlineData", "kline"));
