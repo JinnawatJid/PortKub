@@ -4,7 +4,6 @@
 <head>
   <meta charset="utf-8">
   <link rel="stylesheet" href="index.css">
-
   <title>PortKub</title>
 </head>
 
@@ -15,100 +14,138 @@
       <div class="navbar-container-item">
         <ul class="navbar-menu">
           <li class="navbar-item"><a href="#" class="navbar-link">Trade</a></li>
-          <li class="navbar-item"><a href=../virtualPort/index.html class="navbar-link">Portfolio</a></li>
+          <li class="navbar-item"><a href="../virtualPort/index.html" class="navbar-link">Portfolio</a></li>
           <li class="navbar-item"><a href="#" class="navbar-link">Backtesting</a></li>
           <li class="navbar-item"><a href="#" class="navbar-link">About</a></li>
         </ul>
         <div class="profile-dropdown">
           <img src="../../media/icon/profile-picture.png" alt="Profile" class="profile-icon">
           <ul class="dropdown-menu">
-            <li class="dropdown-item"><a href="#" class="dropdown-link">Login</a></li>
-            <li class="dropdown-item"><a href="#" class="dropdown-link">SignUp</a></li>
+            <!-- Login/SignUp links -->
+            <li class="dropdown-item" id="loginItem">
+              <a href="#" class="dropdown-link">Login</a>
+            </li>
+            <li class="dropdown-item" id="signupItem">
+              <a href="#" class="dropdown-link">SignUp</a>
+            </li>
+            <!-- Logout link -->
+            <li class="dropdown-item" id="logoutItem" style="display:none;">
+              <a href="#" class="dropdown-link">Logout</a>
+            </li>
           </ul>
         </div>
+        <span id="usernameDisplay" style="display:none; color:white; margin-left: -12px;"></span>
       </div>
     </div>
   </nav>
 
+  <!-- User Account Modal -->
+  <div id="userModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" id="closeModal">&times;</span>
+      <h2 id="modalTitle">Login</h2>
+      <form id="userForm">
+        <div class="form-group">
+          <label for="username">Username:</label>
+          <input type="text" id="username" name="username" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password" required>
+        </div>
+        <button type="submit" id="submitButton">Login</button>
+      </form>
+      <p id="toggleFormText">Don't have an account? <a href="#" id="toggleFormLink">Sign up</a></p>
+    </div>
+  </div>
+
   <div class="ticker"><!-- TradingView Widget BEGIN -->
     <div class="tradingview-widget-container">
       <div class="tradingview-widget-container__widget"></div>
-      <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank"><span class="blue-text">Track all markets on TradingView</span></a></div>
+      <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/" rel="noopener nofollow"
+          target="_blank"><span class="blue-text">Track all markets on TradingView</span></a></div>
       <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-tickers.js" async>
-      {
-      "symbols": [
         {
-          "description": "BTCUSDT ",
-          "proName": "BINANCE:BTCUSDT"
-        },
-        {
-          "description": "ETHUSDT ",
-          "proName": "BINANCE:ETHUSDT"
-        },
-        {
-          "description": "USDTDAI ",
-          "proName": "BINANCE:USDTDAI"
-        },
-        {
-          "description": "BNBUSDT",
-          "proName": "BINANCE:BNBUSDT"
-        },
-        {
-          "description": "SOLUSDT ",
-          "proName": "BINANCE:SOLUSDT"
-        },
-        {
-          "description": "XRPUSDT ",
-          "proName": "BINANCE:XRPUSDT"
-        },
-        {
-          "description": "DOGEUSDT ",
-          "proName": "BINANCE:DOGEUSDT"
+          "symbols": [
+            {
+              "description": "BTCUSDT ",
+              "proName": "BINANCE:BTCUSDT"
+            },
+            {
+              "description": "ETHUSDT ",
+              "proName": "BINANCE:ETHUSDT"
+            },
+            {
+              "description": "USDTDAI ",
+              "proName": "BINANCE:USDTDAI"
+            },
+            {
+              "description": "BNBUSDT",
+              "proName": "BINANCE:BNBUSDT"
+            },
+            {
+              "description": "SOLUSDT ",
+              "proName": "BINANCE:SOLUSDT"
+            },
+            {
+              "description": "XRPUSDT ",
+              "proName": "BINANCE:XRPUSDT"
+            },
+            {
+              "description": "DOGEUSDT ",
+              "proName": "BINANCE:DOGEUSDT"
+            }
+          ],
+            "isTransparent": false,
+              "showSymbolLogo": true,
+                "colorTheme": "dark",
+                  "locale": "en"
         }
-      ],
-      "isTransparent": false,
-      "showSymbolLogo": true,
-      "colorTheme": "dark",
-      "locale": "en"
-    }
       </script>
     </div>
-    <!-- TradingView Widget END --></div>
-    <div class="row">
-      <div class="chart" id="tvchart"></div>
+    <!-- TradingView Widget END -->
+  </div>
+  <div class="row">
+    <div class="chart" id="tvchart"></div>
 
-      <div class="column">
-        <div class="list">
-          <p style="text-align: center;">Assets</p>
-          <button class="asset_btn" id="btcButton"><img src="../../media/icon/bitcoin.png" alt="bitcoin logo">Bitcoin</button>
-          <button class="asset_btn" id="ethButton"><img src="../../media/icon/ethereum.png" alt="ethereum logo">Ethereum</button>
-          <button class="asset_btn" id="usdtButton"><img src="../../media/icon/tether.png" alt="tether logo">Tether</button>
-          <button class="asset_btn" id="bnbButton"><img src="../../media/icon/bnb.png" alt="binance logo">Binance</button>
-          <button class="asset_btn" id="solButton"><img src="../../media/icon/solana.png" alt="solana logo">Solana</button>
-          <button class="asset_btn" id="xrpButton"><img src="../../media/icon/xrp.png" alt="xrp logo">XRP</button>
-          <button class="asset_btn" id="dogeButton"><img src="../../media/icon/doge.png" alt="dogecoin logo">Dogecoin</button>
-        </div>
-        <div class="detailBox">
-          <p style="text-align: center; margin: auto;">Detail</p>
+    <div class="column">
+      <div class="list">
+        <p style="text-align: center;">Assets</p>
+        <button class="asset_btn" id="btcButton"><img src="../../media/icon/bitcoin.png"
+            alt="bitcoin logo">Bitcoin</button>
+        <button class="asset_btn" id="ethButton"><img src="../../media/icon/ethereum.png"
+            alt="ethereum logo">Ethereum</button>
+        <button class="asset_btn" id="usdtButton"><img src="../../media/icon/tether.png"
+            alt="tether logo">Tether</button>
+        <button class="asset_btn" id="bnbButton"><img src="../../media/icon/bnb.png" alt="binance logo">Binance</button>
+        <button class="asset_btn" id="solButton"><img src="../../media/icon/solana.png"
+            alt="solana logo">Solana</button>
+        <button class="asset_btn" id="xrpButton"><img src="../../media/icon/xrp.png" alt="xrp logo">XRP</button>
+        <button class="asset_btn" id="dogeButton"><img src="../../media/icon/doge.png"
+            alt="dogecoin logo">Dogecoin</button>
+      </div>
+      <div class="detailBox">
+        <p style="text-align: center; margin: auto;">Detail</p>
+        <div class="buySellbtn">
+          <div class="asset_detail">
+            <img class="asset_image" src="../../media/icon/bitcoin.png" alt="bitcoin logo">
+            <p class="asset_name">Binance BTCUSDT Chart (Bitcoin)</p>
+            <p id="currentPrice">Current Price: </p>
+          </div>
           <div class="buySellbtn">
-            <div class="asset_detail">
-              <img class="asset_image" src="../../media/icon/bitcoin.png" alt="bitcoin logo">
-              <p class="asset_name">Binance BTCUSDT Chart (Bitcoin)</p>
-              <p id="currentPrice">Current Price: </p>
-            </div>
-            <div class="buySellbtn">
-              <button id="buyButton">BUY</button>
-              <button id="sellButton">SELL</button>
-            </div>
+            <button id="buyButton">BUY</button>
+            <button id="sellButton">SELL</button>
           </div>
         </div>
       </div>
     </div>
-    <div class="footer"></div>
-    
+  </div>
+  <div class="footer"></div>
+
 </body>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
 <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script type="text/javascript" src="index.js"></script>
+<script type="text/javascript" src="chart.js"></script>
+<script type="text/javascript" src="loginModal.js"></script>
 </html>
