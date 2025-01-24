@@ -8,6 +8,7 @@ import { fileURLToPath } from "url";
 import createUserRoute from "../server/routes/createUser.js";
 import userLoginRoute from "../server/routes/loginUser.js";  // Import loginUser.js route
 import checkSessionRoute from "../server/routes/checkSession.js";  // Import checkSession.js route
+import getVirtualMoneyRoutes from "../server/routes/getVirtualMoney.js"; // Import the route
 
 // Emulate __dirname
 const __filename = fileURLToPath(import.meta.url);
@@ -81,6 +82,8 @@ app.use("/api", createUserRoute);
 
 // Use the login route
 app.use("/api", userLoginRoute);  // Add the user login route here
+
+app.use("/api/getVirtualMoney", getVirtualMoneyRoutes); // Use the virtual money route
 
 // Protect a route using checkSession middleware
 app.use("/api/protected", checkSessionRoute);
