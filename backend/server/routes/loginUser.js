@@ -30,26 +30,35 @@ router.post("/login", async (req, res) => {
   }
 
   try {
+    // Log received data for debugging
+    console.log("Received login request with username:", username);
+
     // Check if the username exists
     const checkUserQuery = "SELECT * FROM users WHERE username = $1";
     const checkUserResult = await db.query(checkUserQuery, [username]);
 
     if (checkUserResult.rows.length === 0) {
+      console.log("User not found in database for username:", username);
       return res.status(400).json({ message: "Invalid username or password." });
     }
 
     const user = checkUserResult.rows[0];
+    console.log("User found in database:", user);
 
     // Compare the provided password with the hashed password stored in the database
     const passwordMatch = await bcrypt.compare(password, user.password);
+    console.log("Password match result:", passwordMatch);  // Log password match result
 
     if (!passwordMatch) {
       return res.status(400).json({ message: "Invalid username or password." });
     }
 
-    // Store session data
-    req.session.userId = user.userId;
+    // Store session data using username instead of userId
     req.session.username = user.username;
+    console.log("Session data stored:", req.session);  // Log session data
+
+    // Log session after login
+    console.log("Session data after login:", req.session);
 
     // Return success response with the username and session token
     res.status(200).json({
