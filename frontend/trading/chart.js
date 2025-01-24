@@ -30,7 +30,7 @@ const candleSeries = chart.addCandlestickSeries();
 // Function to fetch and update chart data
 function updateChart(token) {
   const baseURL =
-    "https://a052-2001-44c8-6110-4dac-80b4-8854-4c66-7e1.ngrok-free.app/fetchAPI?endpoint=https://api.binance.com/api/v3/klines?symbol="; //:9665
+    "https://edbb-2001-44c8-6110-4dac-84fd-fa08-f18-8f0e.ngrok-free.app/fetchAPI?endpoint=https://api.binance.com/api/v3/klines?symbol="; //:9665
   const fetchURL = `${baseURL}${token}`;
 
   fetch(fetchURL, {
@@ -142,18 +142,22 @@ window.addEventListener("resize", () => {
 });
 
 // Dynamic Chart
-const socket = io.connect("https://a4b7-2001-44c8-6110-4dac-80b4-8854-4c66-7e1.ngrok-free.app/", { //:4000
-  withCredentials: true, // Make sure to allow credentials
-  transports: ["websocket"], // Specify WebSocket transport
-  transportOptions: {
-    websocket: {
-      headers: {
-        "ngrok-skip-browser-warning": "true", // Skip ngrok's browser warning
-        "User-Agent": "Mozilla/5.0 (compatible; MyCustomAgent/1.0)", // Custom User-Agent
+const socket = io.connect(
+  "https://c4a6-2001-44c8-6110-4dac-84fd-fa08-f18-8f0e.ngrok-free.app/",
+  {
+    //:4000
+    withCredentials: true, // Make sure to allow credentials
+    transports: ["websocket"], // Specify WebSocket transport
+    transportOptions: {
+      websocket: {
+        headers: {
+          "ngrok-skip-browser-warning": "true", // Skip ngrok's browser warning
+          "User-Agent": "Mozilla/5.0 (compatible; MyCustomAgent/1.0)", // Custom User-Agent
+        },
       },
     },
-  },
-});
+  }
+);
 
 socket.on("KLINE", (pl) => {
   // Update the chart with the new data

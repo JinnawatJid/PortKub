@@ -7,11 +7,11 @@ body {
   padding: 0;
   margin: 0;
   /* Add a background color to match the chart */
-  background-color: #040A19;
+  background-color: #040a19;
 }
 
 .navbar {
-  background-color: #040A19;
+  background-color: #040a19;
   height: 5vh;
   padding: 1rem;
 }
@@ -23,7 +23,7 @@ body {
   padding: 0 1rem;
 }
 
-.navbar-container-item{
+.navbar-container-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -128,7 +128,7 @@ body {
 }
 
 .footer {
-  background-color: #040A19;
+  background-color: #040a19;
 }
 
 .list {
@@ -143,7 +143,7 @@ body {
 .list button {
   display: flex;
   justify-content: center;
-  background-color: #0C1D4C;
+  background-color: #0c1d4c;
   color: white;
   padding: 10px;
   gap: 8px;
@@ -179,21 +179,23 @@ body {
   color: white;
 }
 
-#buyButton, #sellButton {
-  background-color: #17A37A; /* Buy button color */
+#buyButton,
+#sellButton {
+  background-color: #17a37a; /* Buy button color */
   color: white;
   padding: 15px 20px;
   border: none;
   font-size: 18px;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.2s ease,
+    box-shadow 0.3s ease;
   height: auto;
   border-radius: 10px; /* Rounded corners */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Shadow for depth */
 }
 
 #sellButton {
-  background-color: #AE1F0E; /* Sell button color */
+  background-color: #ae1f0e; /* Sell button color */
 }
 
 #buyButton:hover {
@@ -203,7 +205,7 @@ body {
 }
 
 #sellButton:hover {
-  background-color: #941C0D; /* Darker shade on hover */
+  background-color: #941c0d; /* Darker shade on hover */
   transform: scale(1.05); /* Slight scaling effect */
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); /* Increase shadow on hover */
 }
@@ -297,6 +299,7 @@ body {
   background-color: #f7f7f7;
 }
 
+/* Global button styles */
 button {
   background-color: #1d45b3;
   color: #fff;
@@ -307,7 +310,22 @@ button {
   transition: background-color 0.3s ease;
 }
 
+/* Button hover state */
 button:hover {
   background-color: #2962ff;
 }
 
+/* Specific styles for virtualMoneyItem button */
+#virtualMoneyItem {
+  background-color: transparent !important;  /* Ensures background is transparent */
+  border: 2px solid #FC7500 !important; /* Orange border */
+  color: #FC7500 !important;  /* Ensures text color is orange */
+  font-weight: bold; /* Makes text bold */
+}
+
+/* Specific styles for virtualMoneyDisplay span */
+#virtualMoneyDisplay {
+  color: #FC7500; /* Ensures text color is orange */
+  padding: 5px;
+  font-weight: bold; /* Makes text bold */
+}
