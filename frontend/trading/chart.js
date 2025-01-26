@@ -30,7 +30,7 @@ const candleSeries = chart.addCandlestickSeries();
 // Function to fetch and update chart data
 function updateChart(token) {
   const baseURL =
-    "https://edbb-2001-44c8-6110-4dac-84fd-fa08-f18-8f0e.ngrok-free.app/fetchAPI?endpoint=https://api.binance.com/api/v3/klines?symbol="; //:9665
+    "https://d38a-2001-44c8-6110-4dac-6d7e-be4a-f3cd-ecfd.ngrok-free.app/fetchAPI?endpoint=https://api.binance.com/api/v3/klines?symbol="; //:9665
   const fetchURL = `${baseURL}${token}`;
 
   fetch(fetchURL, {
@@ -143,7 +143,7 @@ window.addEventListener("resize", () => {
 
 // Dynamic Chart
 const socket = io.connect(
-  "https://c4a6-2001-44c8-6110-4dac-84fd-fa08-f18-8f0e.ngrok-free.app/",
+  "https://4e41-2001-44c8-6110-4dac-6d7e-be4a-f3cd-ecfd.ngrok-free.app/",
   {
     //:4000
     withCredentials: true, // Make sure to allow credentials
@@ -170,65 +170,117 @@ socket.on("KLINE", (pl) => {
 });
 
 document.getElementById("buyButton").addEventListener("click", () => {
-  const assetName = "Binance BTCUSDT Chart (Bitcoin)"; // Example asset name. Adjust as needed.
-  currentPrice; // Example price. Adjust as needed.
+  // Get the elements for asset name and current price
+  const assetNameElement = document.querySelector(".asset_name"); // Select the asset name element
+  const currentPriceElement = document.getElementById("currentPrice"); // Select the current price element
 
-  Swal.fire({
-    title: "Buy Asset",
-    html: `
-      <div style="text-align: left;">
-        <p><strong>Asset Name:</strong> ${assetName}</p>
-        <p><strong>Current Price:</strong> ${currentPrice}</p>
-        <label for="quantity">Quantity:</label>
-        <input type="number" id="quantity" placeholder="Enter quantity" class="swal2-input">
-      </div>
-    `,
-    showCancelButton: true,
-    confirmButtonText: "Confirm",
-    cancelButtonText: "Cancel",
-    confirmButtonColor: "#17A37A",
-    cancelButtonColor: "#AE1F0E",
+  // Get dynamic asset name and price
+  const assetName = assetNameElement.textContent; // Dynamic asset name
+  const currentPrice = parseFloat(currentPriceElement.textContent.replace('Current Price: ', '').trim()); // Get the current price of the asset
+  const username = localStorage.getItem('username'); // If stored in localStorage
 
-    preConfirm: () => {
-      const quantity = document.getElementById("quantity").value;
-      if (!quantity) {
-        Swal.showValidationMessage("Please enter a quantity");
-      }
-      return { assetName, currentPrice, quantity };
+  console.log("Asset Name:", assetName); // Debugging asset name
+  console.log("Current Price:", currentPrice); // Debugging current price
+  console.log("Username:", username); // Debugging username
+
+  // Fetch user's virtual money
+  fetch("/api/getVirtualMoney", {
+    method: "GET",
+    headers: {
+      "ngrok-skip-browser-warning": "true", // Skip ngrok's browser warning if using ngrok
+      "User-Agent": "Mozilla/5.0 (compatible; MyCustomAgent/1.0)", // Custom User-Agent
+      "Content-Type": "application/json", // Ensure proper content type
     },
-  }).then((result) => {
-    if (result.isConfirmed) {
-      const { assetName, currentPrice, quantity } = result.value;
+    credentials: 'same-origin', // Include session cookie for session management
+  })
+    .then((response) => {
+      console.log("Fetching virtual money... Response status:", response.status); // Debugging fetch response
+      if (!response.ok) {
+        throw new Error("Failed to fetch virtual money: " + response.statusText);
+      }
+      return response.json();
+    })
+    .then((data) => {
+      console.log("Received virtual money data:", data); // Debugging response data
+      if (data.success) {
+        const virtualMoney = data.virtualMoney;
+        console.log("User's virtual money:", virtualMoney); // Debugging user's virtual money
+        
+        // Show the SweetAlert2 popup for quantity input
+        Swal.fire({
+          title: "Enter Quantity",
+          html: ` 
+            <div style="text-align: left;">
+              <p><strong>Asset Name:</strong> ${assetName}</p>
+              <p><strong>Current Price:</strong> ${currentPrice}</p>
+              <label for="quantityInput"><strong>Quantity:</strong></label>
+              <input id="quantityInput" type="number" min="1" value="1" class="swal2-input" />
+            </div>
+          `,
+          showCancelButton: true,
+          confirmButtonText: "Confirm",
+          cancelButtonText: "Cancel",
+          confirmButtonColor: "#17A37A",
+          cancelButtonColor: "#AE1F0E",
+          preConfirm: () => {
+            const quantity = document.getElementById("quantityInput").value; // Get the quantity from the popup
+            console.log("Quantity entered:", quantity); // Debugging entered quantity
+            return {
+              assetName,
+              currentPrice,
+              quantity,
+              username,
+            };
+          },
+        }).then((result) => {
+          if (result.isConfirmed) {
+            const { assetName, currentPrice, quantity, username } = result.value;
+            const totalCost = currentPrice * quantity;
+            console.log("Total cost of purchase:", totalCost); // Debugging total cost
 
-      // Step 3: Send data to the server using AJAX
-      fetch("http://localhost:3000/api/buyAsset", {
-        // Replace '/api/buyAsset' with your actual endpoint
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ assetName, price: currentPrice, quantity }),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          if (data.success) {
-            Swal.fire(
-              "Success!",
-              "Asset purchase has been recorded.",
-              "success"
-            );
-          } else {
-            Swal.fire(
-              "Error!",
-              "There was a problem with the purchase.",
-              "error"
-            );
+            // Check if quantity is valid
+            if (!quantity || quantity <= 0) {
+              Swal.showValidationMessage("Please enter a valid quantity");
+              return;
+            }
+
+            // Check if user has enough virtual money
+            if (virtualMoney >= totalCost) {
+              console.log("User has enough virtual money. Proceeding with purchase...");
+
+              // Proceed with the purchase process
+              fetch("http://localhost:3000/api/buyAsset", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ assetName, currentPrice, quantity, totalCost, username }), // Ensure username is sent in the request body
+                credentials: 'same-origin', // Ensure session cookies are sent with the request
+              })
+                .then((response) => response.json())
+                .then((data) => {
+                  console.log("Response from buyAsset API:", data); // Debugging response from buyAsset API
+                  if (data.success) {
+                    Swal.fire("Success!", "Asset purchase has been recorded.", "success");
+                  } else {
+                    Swal.fire("Error!", "There was a problem with the purchase.", "error");
+                  }
+                })
+                .catch((error) => {
+                  console.error("Error during purchase process:", error);
+                  Swal.fire("Error!", "Unable to reach the server.", "error");
+                });
+            } else {
+              Swal.fire("Insufficient Balance", "You do not have enough virtual money", "error");
+            }
           }
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-          Swal.fire("Error!", "Unable to reach the server.", "error");
         });
-    }
-  });
+      } else {
+        Swal.fire("Error", "Unable to fetch virtual money", "error");
+      }
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+      Swal.fire("Error", "Unable to fetch virtual money", "error");
+    });
 });
