@@ -238,3 +238,58 @@ img.delete-icon:hover {
   filter: brightness(0.8); /* Darken the icon slightly */
   opacity: 0.8; /* Lower the opacity */
 }
+
+/* Global button styles */
+button {
+  background-color: #1d45b3;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Button hover state */
+button:hover {
+  background-color: #2962ff;
+}
+
+/* Specific styles for virtualMoneyItem button */
+#virtualMoneyItem {
+  background-color: transparent !important;  /* Ensures background is transparent */
+  border: 2px solid #FC7500 !important; /* Orange border */
+  color: #FC7500 !important;  /* Ensures text color is orange */
+  font-weight: bold; /* Makes text bold */
+}
+
+/* Specific styles for virtualMoneyDisplay span */
+#virtualMoneyDisplay {
+  color: #FC7500; /* Ensures text color is orange */
+  padding: 5px;
+  font-weight: bold; /* Makes text bold */
+}
+
+/* Modal Styles */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed;
+  z-index: 10;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
+}
+
+.modal-content {
+  background-color: #fff;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  width: 30%;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
