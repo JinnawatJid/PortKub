@@ -3,12 +3,13 @@ import express from "express";
 import cors from "cors";
 import path from "path";
 import bodyParser from "body-parser";
-import session from "express-session";  // Import express-session for session management
+import session from "express-session";
 import { fileURLToPath } from "url";
-import createUserRoute from "../server/routes/createUser.js";
-import userLoginRoute from "../server/routes/loginUser.js";  // Import loginUser.js route
-import checkSessionRoute from "../server/routes/checkSession.js";  // Import checkSession.js route
-import getVirtualMoneyRoutes from "../server/routes/getVirtualMoney.js"; // Import the route
+import createUserRoute from "../server/routes/userManagement/createUser.js";
+import userLoginRoute from "../server/routes/userManagement/loginUser.js";
+import checkSessionRoute from "../server/routes/userManagement/checkSession.js";
+import getVirtualMoneyRoutes from "../server/routes/userManagement/getVirtualMoney.js";
+import buyAssetRoute from "../server/routes/portfolioManagement/buyAsset.js";
 
 // Emulate __dirname
 const __filename = fileURLToPath(import.meta.url);
@@ -53,30 +54,6 @@ app.get("/", (req, res) => {
   );
 });
 
-// Endpoint to handle asset purchase
-app.post("/api/buyAsset", (req, res) => {
-  const { assetName, price, quantity } = req.body;
-
-  saveAssetPurchase({ assetName, price, quantity })
-    .then(() => res.json({ success: true }))
-    .catch((err) => {
-      console.error(err);
-      res.status(500).json({ success: false, message: "Database error" });
-    });
-});
-
-// Endpoint to delete an asset
-app.post("/api/deleteAsset", (req, res) => {
-  const { assetName } = req.body;
-
-  deleteAsset(assetName)
-    .then(() => res.json({ success: true }))
-    .catch((err) => {
-      console.error(err);
-      res.status(500).json({ success: false, message: "Database error" });
-    });
-});
-
 // Use the create user route
 app.use("/api", createUserRoute);
 
@@ -88,21 +65,8 @@ app.use("/api/getVirtualMoney", getVirtualMoneyRoutes); // Use the virtual money
 // Protect a route using checkSession middleware
 app.use("/api/protected", checkSessionRoute);
 
-// Function to simulate saving an asset purchase (for demo purposes)
-function saveAssetPurchase(purchaseData) {
-  return new Promise((resolve, reject) => {
-    console.log("Saving purchase data:", purchaseData);
-    resolve();
-  });
-}
-
-// Function to simulate deleting an asset (for demo purposes)
-function deleteAsset(assetName) {
-  return new Promise((resolve, reject) => {
-    console.log(`Deleting asset with name: ${assetName}`);
-    resolve();
-  });
-}
+// Use the buy asset route
+app.use("/api", buyAssetRoute);  // Add the buyAsset route here
 
 // Start the main server
 const port = 3000;
