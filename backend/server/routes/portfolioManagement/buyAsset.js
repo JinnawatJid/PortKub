@@ -39,7 +39,7 @@ router.post('/buyAsset', (req, res) => {
       console.log(`Updated virtual money for user ${username}. Deducted: ${totalCost}`);
 
       // Step 3: Check if the asset exists in the user's portfolio
-      db.query('SELECT * FROM portfolio WHERE username = $1 AND assetname = $2', [username, assetName], (err, result) => {
+      db.query('SELECT * FROM portfolio WHERE portowner = $1 AND assetname = $2', [username, assetName], (err, result) => {
         if (err) {
           console.error('Error fetching portfolio data for user:', username, err);
           return res.status(500).json({ success: false, message: 'Internal server error' });
@@ -50,14 +50,14 @@ router.post('/buyAsset', (req, res) => {
         if (result.rows.length > 0) {
           // Asset exists in the portfolio, update the quantity
           const currentAsset = result.rows[0];
-          const newQuantity = currentAsset.quantity + quantity;
-          const newTotalCost = currentAsset.total + totalCost;
+          const newQuantity = parseFloat(currentAsset.quantity) + parseFloat(quantity);
+          const newTotalCost = parseFloat(currentAsset.total) + parseFloat(totalCost);
 
           console.log(`Updating existing portfolio asset for ${username}: ${assetName}. New quantity: ${newQuantity}, New total cost: ${newTotalCost}`);
 
           // Update portfolio asset
           db.query(
-            'UPDATE portfolio SET quantity = $1, total = $2 WHERE username = $3 AND assetname = $4',
+            'UPDATE portfolio SET quantity = $1, total = $2 WHERE portowner = $3 AND assetname = $4',
             [newQuantity, newTotalCost, username, assetName],
             (err) => {
               if (err) {
@@ -74,8 +74,8 @@ router.post('/buyAsset', (req, res) => {
           console.log(`Asset ${assetName} not found in portfolio for ${username}. Adding new record.`);
 
           db.query(
-            'INSERT INTO portfolio (username, assetname, quantity, total) VALUES ($1, $2, $3, $4)',
-            [username, assetName, quantity, totalCost],
+            'INSERT INTO portfolio (portowner, username, assetname, quantity, total) VALUES ($1, $2, $3, $4, $5)',
+            [username, username, assetName, parseFloat(quantity), parseFloat(totalCost)],
             (err) => {
               if (err) {
                 console.error('Error inserting portfolio asset:', err);
