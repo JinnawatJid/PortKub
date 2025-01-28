@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Portfolio</title>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="#" class="navbar-logo">PortKub</a>
+            <div class="navbar-container-item">
+                <ul class="navbar-menu">
+                    <li class="navbar-item"><a href="../trading/trading.html" class="navbar-link">Trade</a></li>
+                    <li class="navbar-item"><a href="../virtualPort/virtualPort.html" class="navbar-link">Portfolio</a>
+                    </li>
+                    <li class="navbar-item"><a href="#" class="navbar-link">Backtesting</a></li>
+                    <li class="navbar-item"><a href="#" class="navbar-link">About</a></li>
+                </ul>
+                <button id="virtualMoneyItem" style="display: none;" class="navbar-button">
+                    <span id="virtualMoneyDisplay">$0</span>
+                </button>
+                <div class="profile-dropdown">
+                    <img src="../../media/icon/profile-picture.png" alt="Profile" class="profile-icon">
+                    <ul class="dropdown-menu">
+                        <!-- Login/SignUp links -->
+                        <li class="dropdown-item" id="loginItem">
+                            <a href="#" class="dropdown-link">Login</a>
+                        </li>
+                        <li class="dropdown-item" id="signupItem">
+                            <a href="#" class="dropdown-link">SignUp</a>
+                        </li>
+                        <!-- Logout link -->
+                        <li class="dropdown-item" id="logoutItem" style="display:none;">
+                            <a href="#" class="dropdown-link">Logout</a>
+                        </li>
+                    </ul>
+                </div>
+                <span id="usernameDisplay" style="display:none; color:white; margin-left: -12px;"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- User Account Modal -->
+    <div id="userModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" id="closeModal">&times;</span>
+            <h2 id="modalTitle">Login</h2>
+            <form id="userForm">
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit" id="submitButton">Login</button>
+            </form>
+            <p id="toggleFormText">Don't have an account? <a href="#" id="toggleFormLink">Sign up</a></p>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <div class="currentAssetValueContainer">
+            <div class="column1">
+                <div class="assetValueImage"><img src="../../media/icon/AssetValue.png" alt="AssetValue"></div>
+                <div>
+                    <h3>Current Asset Value</h3>
+                    <h2 id="currentPrice"></h2>
+                </div>
+            </div>
+            <div class="column2">
+                <div class="investmentValueContainer">
+                    <h4>Investment Value</h4>
+                    <h4>Profit / Loss</h4>
+                </div>
+                <div class="profitLossContainer">
+                    <h4></h4>
+                    <h4>0 USD</h4>
+                </div>
+            </div>
+            <div class="column3">
+                <div class="investmentValueContainer">
+                    <h4>Profit / Loss from Sale</h4>
+                    <h4>Total Profit / Loss</h4>
+                </div>
+                <div class="profitLossContainer">
+                    <h4>0 USD</h4>
+                    <h4>0 USD</h4>
+                </div>
+            </div>
+        </div>
+
+        <div class="portfolioContainer">
+            <table class="portfolioTable">
+                <thead>
+                    <tr>
+                        <th>Asset Name</th>
+                        <th>Quantity</th>
+                        <th>Avg Cost</th>
+                        <th>Current Price</th>
+                        <th>Cost Value</th>
+                        <th>Current Value</th>
+                        <th>Profit / Loss (USD)</th>
+                        <th>Profit / Loss (%)</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="portfolioTableBody">
+                    <!-- Rows will be dynamically inserted here by portfolio.js -->
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+
+</body>
+<script type="text/javascript" src="portfolio.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script type="text/javascript" src="../trading/loginModal.js"></script>
+
+</html>
