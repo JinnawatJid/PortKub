@@ -10,6 +10,7 @@ import userLoginRoute from "../server/routes/userManagement/loginUser.js";
 import checkSessionRoute from "../server/routes/userManagement/checkSession.js";
 import getVirtualMoneyRoutes from "../server/routes/userManagement/getVirtualMoney.js";
 import buyAssetRoute from "../server/routes/portfolioManagement/buyAsset.js";
+import getAssetRoute from "../server/routes/portfolioManagement/getAsset.js";
 
 // Emulate __dirname
 const __filename = fileURLToPath(import.meta.url);
@@ -50,7 +51,7 @@ app.use("/media", express.static(path.join(__dirname, "../..", "media")));
 // Redirect root URL to the trading app's index.html
 app.get("/", (req, res) => {
   res.sendFile(
-    path.join(__dirname, "../..", "frontend", "trading", "index.html")
+    path.join(__dirname, "../..", "frontend", "trading", "trading.html")
   );
 });
 
@@ -64,6 +65,8 @@ app.use("/api/getVirtualMoney", getVirtualMoneyRoutes); // Use the virtual money
 
 // Protect a route using checkSession middleware
 app.use("/api/protected", checkSessionRoute);
+
+app.use("/api/portfolio", getAssetRoute);  // Use the getAsset route
 
 // Use the buy asset route
 app.use("/api", buyAssetRoute);  // Add the buyAsset route here
