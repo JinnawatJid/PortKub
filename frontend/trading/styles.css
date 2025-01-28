@@ -1,0 +1,331 @@
+:root {
+  font-family: -apple-system, BlinkMacSystemFont, "Trebuchet MS", Roboto, Ubuntu,
+    sans-serif;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  /* Add a background color to match the chart */
+  background-color: #040a19;
+}
+
+.navbar {
+  background-color: #040a19;
+  height: 5vh;
+  padding: 1rem;
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1rem;
+}
+
+.navbar-container-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+}
+
+.navbar-logo {
+  font-weight: 600;
+  font-size: 32px;
+  background: var(
+    --18-promo-gradient-02,
+    linear-gradient(90deg, #00bce5 0%, #2962ff 100%)
+  );
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.navbar-menu {
+  list-style: none;
+  display: flex;
+  position: relative; /* Needed for dropdown positioning */
+}
+
+.navbar-item {
+  margin-left: 1.5rem;
+}
+
+.navbar-link {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1rem;
+}
+
+.navbar-link:hover {
+  color: #ddd;
+}
+
+.profile-dropdown {
+  position: relative;
+}
+
+.profile-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 100%;
+  background-color: #444;
+  list-style: none;
+  padding: 0.5rem 0;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.dropdown-item {
+  padding: 0.5rem 1rem;
+}
+
+.dropdown-link {
+  color: #fff;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-link:hover {
+  background-color: #555;
+}
+
+/* Show dropdown on profile-icon click */
+.profile-dropdown.active .dropdown-menu {
+  display: block;
+}
+
+.asset_name {
+  color: white;
+}
+
+.row {
+  display: flex;
+}
+
+.column {
+  flex: 20%;
+  background-color: #081433;
+}
+
+.list {
+  background-color: #081433;
+  width: 100%;
+  height: 314px;
+  display: grid;
+}
+
+.detail {
+  background-color: beige;
+}
+
+.footer {
+  background-color: #040a19;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  width: auto;
+  margin: auto;
+  background-color: #081433;
+  color: white;
+}
+
+.list button {
+  display: flex;
+  justify-content: center;
+  background-color: #0c1d4c;
+  color: white;
+  padding: 10px;
+  gap: 8px;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.list img {
+  display: flex;
+  width: 14px;
+  height: auto;
+  justify-content: center;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.list button:hover {
+  background-color: #153180;
+}
+
+.list button:active {
+  background-color: #1d45b3; /* Darkest blue on click */
+  transform: scale(0.98); /* Slightly shrink on click */
+}
+
+.detailBox {
+  background-color: #081433;
+  width: 100%;
+  height: 40vh;
+  display: grid;
+  color: white;
+}
+
+#buyButton,
+#sellButton {
+  background-color: #17a37a; /* Buy button color */
+  color: white;
+  padding: 15px 20px;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease,
+    box-shadow 0.3s ease;
+  height: auto;
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Shadow for depth */
+}
+
+#sellButton {
+  background-color: #ae1f0e; /* Sell button color */
+}
+
+#buyButton:hover {
+  background-color: #139466; /* Darker shade on hover */
+  transform: scale(1.05); /* Slight scaling effect */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); /* Increase shadow on hover */
+}
+
+#sellButton:hover {
+  background-color: #941c0d; /* Darker shade on hover */
+  transform: scale(1.05); /* Slight scaling effect */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); /* Increase shadow on hover */
+}
+
+.buySellbtn {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  background-color: #081433;
+  color: white;
+  text-align: center;
+  gap: 12px;
+  border-radius: 8px; /* Rounded corners for container */
+  margin: auto;
+}
+
+.buySellbtn img {
+  display: flex;
+  width: 30px;
+  height: auto;
+  justify-content: center;
+  margin: auto;
+}
+
+.assetDetail {
+  display: flex;
+  flex-direction: column;
+  background-color: #081433;
+  color: white;
+  margin: 0;
+}
+
+.ticker {
+  height: 8vh;
+}
+
+/* Modal Styles */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed;
+  z-index: 10;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
+}
+
+.modal-content {
+  background-color: #fff;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  width: 30%;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.close-btn {
+  color: #777;
+  float: right;
+  font-size: 22px;
+  font-weight: bold;
+  margin-top: -10px;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+  color: #00bce5;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 16px;
+}
+
+.form-group input {
+  width: 90%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f7f7f7;
+}
+
+/* Global button styles */
+button {
+  background-color: #1d45b3;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Button hover state */
+button:hover {
+  background-color: #2962ff;
+}
+
+/* Specific styles for virtualMoneyItem button */
+#virtualMoneyItem {
+  background-color: transparent !important;  /* Ensures background is transparent */
+  border: 2px solid #FC7500 !important; /* Orange border */
+  color: #FC7500 !important;  /* Ensures text color is orange */
+  font-weight: bold; /* Makes text bold */
+}
+
+/* Specific styles for virtualMoneyDisplay span */
+#virtualMoneyDisplay {
+  color: #FC7500; /* Ensures text color is orange */
+  padding: 5px;
+  font-weight: bold; /* Makes text bold */
+}
